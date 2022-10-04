@@ -1,7 +1,7 @@
 name = "FieldConstants"
 uuid = "73d362c4-b7ec-495f-a538-f22f12d4d8ae"
 authors = ["Michael Reed"]
-version = "0.1.0"
+version = "0.1.1"
 
 [compat]
 julia = "1"

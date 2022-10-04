@@ -40,6 +40,7 @@ Numerical field constant `N` with known value at compile time.
 julia> Constant(100)
 $(Constant(100))
 ```
+Operations on `Constant` are closed (`*`, `/`, `+`, `-`, `^`), yet they also behave like `Float64` values when mixed with non-`Constant` arguments.
 """ Constant
 
 @pure constant(::Constant{N}) where N = N
@@ -48,6 +49,7 @@ $(Constant(100))
 
 logdb(x) = 10log10(x)
 expdb(x) = exp10(0.1)^x
+const dB = logdb
 
 Base.Int(::Constant{N}) where N = Constant(Int(N))
 Base.show(io::IO,::Constant{N}) where N  = show(io,N)
@@ -61,8 +63,6 @@ Base.:<(a::Real,b::Constant) = a<constant(b)
 Base.:<(a::Constant,b::Real) = constant(a)<b
 Base.:+(a::Constant,b::Constant) = Constant(constant(a)+constant(b))
 Base.:-(a::Constant,b::Constant) = Constant(constant(a)-constant(b))
-Base.:+(a::Constant{N},::Constant{N}) where N = 𝟐*a
-Base.:-(a::Constant{N},::Constant{N}) where N = Constant(0)
 Base.:+(a::Number,b::Constant) = a+constant(b)
 Base.:+(a::Constant,b::Number) = constant(a)+b
 Base.:-(a::Number,b::Constant) = a-constant(b)
